@@ -17,7 +17,7 @@ btnCansel.onclick = () => {
 btnSave.onclick = () => {
     let inputFields = document.getElementsByClassName("input_field");
     let textEmpty = "Данные не указаны";
-    const fields = [
+    let fields = [
         "Префикс населенного пункта",
         "Название населенного пункта",
         "Префикс улицы",
