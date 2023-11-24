@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Аналитика";
+}
+@model List<string>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="/css/analyticstyle.css"/>
+
+<h1>Аналитика</h1>
+
+<div id="second_container" class="main_container">
+    <table id="tableid" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            @{
+                foreach(string item in Model)
+                {
+                    string[] cols = item.Split('-');
+                    if (cols.Length != 2)
+                        continue;
+                    <tr>
+                        <td>@cols[0]</td>
+                        <td>@cols[1]</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" asp-append-version="true"></script>
+<script src="/js/analytic.js" asp-append-version="true"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" asp-append-version="true"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" asp-append-version="true"></script>

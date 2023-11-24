@@ -1,0 +1,98 @@
+html {
+    font-size: 2vh;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+html, body, header.headerbar, footer {
+    background-color: #161a1e;
+}
+
+.main_container {
+    color: white;
+    background-color: #2a323b;
+    border-radius: 2vw;
+    box-shadow: black 0 0 40px 1px;
+    margin: 4vh 2vw 4vh 2vw;
+    padding: 2vw;
+}
+
+#second_container {
+    margin: 4vh 2vw 10vh 2vw;
+}
+
+#textTextarea{
+    width:100%;
+    min-height:8rem;
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    list-style: none;
+}
+
+p{
+    font-size:0.8rem;
+}
+
+input {
+    border-radius: 0.3rem;
+    border: 2px solid transparent;
+    border-bottom: 2px solid white;
+    background-color: #2a323b;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+input:hover {
+    border: 2px solid #3f4b59;
+}
+
+button {
+    border-width: 0px;
+    border-radius: 0.3rem;
+    background-color: #3f4b59;
+    box-shadow: rgb(30 30 30) 0 0 10px 0px;
+    padding: 1vh 1vw;
+    margin: 0.2vh 0.2vw;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    padding: 1.2vh 1.2vw;
+    margin: 0vh 0vw;
+}
+
+textarea {
+    padding:0.5rem;
+    border-radius: 0.3rem;
+    min-width: 15vw;
+    background-color: #2a323b;
+    border: 1px solid white;
+    color:white;
+}
+
+h1, p, h2{
+    color: white;
+    font-weight:500;
+    white-space: pre-line;
+}
+
+.modal-content {
+    background-color: #2a323b;
+    border-radius: 0.5rem;
+    box-shadow: rgb(30 30 30) 0 0 10px 0px;
+}
