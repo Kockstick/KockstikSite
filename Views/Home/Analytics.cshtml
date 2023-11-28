@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Аналитика";
 }
-@model List<string>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/css/analyticstyle.css"/>
@@ -17,18 +16,6 @@
             </tr>
         </thead>
         <tbody id="table_body">
-            @{
-                foreach(string item in Model)
-                {
-                    string[] cols = item.Split('-');
-                    if (cols.Length != 2)
-                        continue;
-                    <tr>
-                        <td>@cols[0]</td>
-                        <td>@cols[1]</td>
-                    </tr>
-                }
-            }
         </tbody>
     </table>
 </div>

@@ -1,4 +1,6 @@
-﻿using KockstikSite.Models;
+﻿using KockstikSite.Database;
+using KockstikSite.Database.Models;
+using KockstikSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -28,7 +30,7 @@ namespace KockstikSite.Controllers
 
         public IActionResult Analytics()
         {
-            return View(Courses.GetCourses());
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

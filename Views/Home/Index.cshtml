@@ -7,51 +7,53 @@
 <section>
     <div class="main_container">
 
-        <ul>
-            <li>
-                <p>Префикс населенного пункта:</p>
-                <input class="input_field" name="localityPrefix" />
-            </li>
-            <li>
-                <p>Название населенного пункта:</p>
-                <input class="input_field" name="localityName" />
-            </li>
-            <li>
-                <p>Префикс улицы:</p>
-                <input class="input_field" name="streetPrefix" />
-            </li>
-            <li>
-                <p>Название улицы:</p>
-                <input class="input_field" name="streetName" />
-            </li>
-            <li>
-                <p>Номер дома:</p>
-                <input class="input_field" type="number" name="houseNumber" />
-            </li>
-            <li>
-                <p>Литера дома:</p>
-                <input class="input_field" name="houseLetter" />
-            </li>
-            <li>
-                <p>Номер корпуса:</p>
-                <input class="input_field" type="number" name="buildingNumber" />
-            </li>
-            <li>
-                <p>Номер квартиры:</p>
-                <input class="input_field" type="number" name="apartmentNumber" />
-            </li>
-            <li>
-                <p>Номер комнаты:</p>
-                <input class="input_field" type="number" name="roomNumber" />
-            </li>
-            <li>
-                <p>Комментарий:</p>
-                <textarea class="input_field" name="comment"></textarea>
-            </li>
-        </ul>
+        <form method="post" asp-controller="Addresses" asp-action="SaveAddress">
+            <ul>
+                <li>
+                    <p>Префикс населенного пункта:</p>
+                    <input class="input_field" name="LocalityPrefix" />
+                </li>
+                <li>
+                    <p>Название населенного пункта:</p>
+                    <input class="input_field" name="LocalityName" />
+                </li>
+                <li>
+                    <p>Префикс улицы:</p>
+                    <input class="input_field" name="StreetPrefix" />
+                </li>
+                <li>
+                    <p>Название улицы:</p>
+                    <input class="input_field" name="StreetName" />
+                </li>
+                <li>
+                    <p>Номер дома:</p>
+                    <input class="input_field" type="number" name="HouseNumber" />
+                </li>
+                <li>
+                    <p>Литера дома:</p>
+                    <input class="input_field" name="HomeLetter" />
+                </li>
+                <li>
+                    <p>Номер корпуса:</p>
+                    <input class="input_field" type="number" name="BuildingNumber" />
+                </li>
+                <li>
+                    <p>Номер квартиры:</p>
+                    <input class="input_field" type="number" name="ApartmentNumber" />
+                </li>
+                <li>
+                    <p>Номер комнаты:</p>
+                    <input class="input_field" type="number" name="RoomNumber" />
+                </li>
+                <li>
+                    <p>Комментарий:</p>
+                    <textarea class="input_field" name="Description"></textarea>
+                </li>
+            </ul>
 
-        <button class="btn-primary" id="SaveBtn" type="button">Сохранить</button>
-        <button class="btn-outline-warning" id="CanselBtn" type="button">Отменить</button>
+            <button class="btn-primary" id="SaveBtn" type="submit">Сохранить</button>
+            <button class="btn-outline-warning" id="CanselBtn" type="button">Отменить</button>
+        </form>
     </div>
 </section>
 

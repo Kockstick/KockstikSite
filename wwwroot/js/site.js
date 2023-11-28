@@ -14,7 +14,7 @@ btnCansel.onclick = () => {
     }   
 }
 
-btnSave.onclick = () => {
+btnSave.onclick = async function() {
     let inputFields = document.getElementsByClassName("input_field");
     let textEmpty = "Данные не указаны";
     let fields = [
@@ -42,10 +42,6 @@ btnSave.onclick = () => {
     let modalText = document.getElementById("modal-text");
     modalText.textContent = text;
     modal.show();
-    /*
-    alert(text);
-    clearFields();
-    */
 }
 
 modaldoc.addEventListener("hidden.bs.modal", () => {
