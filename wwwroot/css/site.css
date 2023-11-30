@@ -96,3 +96,36 @@ h1, p, h2{
     border-radius: 0.5rem;
     box-shadow: rgb(30 30 30) 0 0 10px 0px;
 }
+
+.message_div {
+    position: fixed;
+    max-width: 20rem;
+    padding: 1rem;
+    bottom: 5%;
+    right: -50rem;
+    background-color: #2a323b;
+    border: 2px solid white;
+    box-shadow: white 0 0 10px 0px;
+    border-radius: 1rem;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.message-showing {
+    right: 2rem;
+}
+
+.message-error {
+    border: 2px solid pink;
+    box-shadow: red 0 0 10px 0px;
+}
+
+.message-success {
+    border: 2px solid lightgreen;
+    box-shadow: green 0 0 10px 0px;
+}
+
+#message_text, #message_title{
+    max-width: 20rem;
+    overflow-wrap: break-word;
+}

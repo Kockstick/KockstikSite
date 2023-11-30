@@ -64,6 +64,18 @@
     </div>
 </section>
 
+<div class="message_div">
+    @if (ViewBag.InfoMessage != null)
+    {
+        <h2 id="message_title">@ViewBag.InfoMessage.Title</h2>
+        <p id="message_text">@ViewBag.InfoMessage.Text</p>
+    }
+    else
+    {
+        <h2 id="message_title"></h2>
+        <p id="message_text"></p>
+    }
+</div>
 
 <div class="modal">
     <div class="modal-dialog">

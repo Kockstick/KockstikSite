@@ -16,7 +16,7 @@
 
         public string getFullAddress()
         {
-            return LocalityPrefix + LocalityName + " " + StreetPrefix + StreetName + " " + HomeLetter + HouseNumber + " " + ApartmentNumber;
+            return LocalityPrefix + "." + LocalityName + " " + StreetPrefix + "." + StreetName + " " + HomeLetter + "." + HouseNumber;
         }
     }
 }

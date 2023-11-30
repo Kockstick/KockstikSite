@@ -8,6 +8,8 @@ let btnModal = document.getElementById("btnModalClose");
 let modaldoc = document.querySelector(".modal");
 let modal = new bootstrap.Modal(modaldoc);
 
+CheckMessage();
+
 btnCansel.onclick = () => {
     if (confirm("Отчистить все поля на форме?")) {
         clearFields();
@@ -65,4 +67,22 @@ editBtn.onclick = () => {
         textArea.disabled = true;
         editBtn.textContent = "Редактировать";
     }
+}
+
+async function CheckMessage() {
+    let message = document.querySelector(".message_div");
+    let text = document.getElementById("message_text");
+
+    if (text.textContent == "")
+        return;
+
+    message.classList.add("message-showing");
+
+    message.onclick = () => {
+        message.classList.remove("message-showing");
+    }
+
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+    await delay(5000);
+    message.classList.remove("message-showing");
 }

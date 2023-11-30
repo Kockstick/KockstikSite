@@ -9,13 +9,14 @@ namespace KockstikSite.Controllers
     public class Addresses : Controller
     {
         [HttpGet]
-        public string SaveAddress()
+        public IActionResult SaveAddress(string title, string text)
         {
-            return "Save address get";
+            ViewBag.InfoMessage = new InfoMessage(title, text);
+            return View("~/Views/Home/Index.cshtml");
         }
 
         [HttpPost]
-        public string SaveAddress(Address address)
+        public IActionResult SaveAddress(Address address)
         {
             try
             {
@@ -26,14 +27,13 @@ namespace KockstikSite.Controllers
                     context.Addresses.Add(address);
                     context.SaveChanges();
 
-                    Debug.WriteLine("Добавлен новый адрес: " + address.getFullAddress());
+                    return RedirectToAction("SaveAddress", "Addresses", new { title = "Выполнено", text = "Добавлен новый адрес: " + address.getFullAddress() });
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Ошибка добавления адреса: " + ex.ToString());
+                return RedirectToAction("SaveAddress", "Addresses", new { title = "Ошибка", text = "Ошибка добавления адреса: " + ex.ToString() });
             }
-            return "Save address post";
         }
     }
 }
