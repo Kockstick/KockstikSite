@@ -17,7 +17,7 @@ namespace KockstikSite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Addresses");
         }
 
         public IActionResult Privacy()

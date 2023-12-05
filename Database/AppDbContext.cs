@@ -1,5 +1,6 @@
 ﻿using KockstikSite.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 
 namespace KockstikSite.Database
@@ -8,9 +9,19 @@ namespace KockstikSite.Database
     {
         public DbSet<Address> Addresses { get; set; }
 
+        public AppDbContext()
+        {
+            Database.Migrate();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=db_fermermarket;UID=postgres;PWD=admin");
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            IConfigurationRoot config = builder.Build();
+
+            optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"));
         }
     }
 }

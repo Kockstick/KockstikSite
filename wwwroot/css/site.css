@@ -26,7 +26,7 @@ html, body, header.headerbar, footer {
     padding: 2vw;
 }
 
-#second_container {
+#second_container, #last-container {
     margin: 4vh 2vw 10vh 2vw;
 }
 
@@ -100,6 +100,8 @@ h1, p, h2{
 .message_div {
     position: fixed;
     max-width: 20rem;
+    max-height: 70%;
+    overflow-y:auto;
     padding: 1rem;
     bottom: 5%;
     right: -50rem;
@@ -109,6 +111,10 @@ h1, p, h2{
     border-radius: 1rem;
     z-index: 1;
     transition: all 0.5s ease;
+}
+
+.message_div::-webkit-scrollbar{
+    width:0;
 }
 
 .message-showing {
@@ -128,4 +134,13 @@ h1, p, h2{
 #message_text, #message_title{
     max-width: 20rem;
     overflow-wrap: break-word;
+}
+
+#tableid td {
+    overflow-wrap: break-word;
+}
+
+#tableid {
+    table-layout: fixed;
+    width: 100%;
 }
