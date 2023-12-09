@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Удалить Адрес";
+}
+
+<h1>"Удалить Адрес"</h1>
+
+<section>
+    <div class="main_container">
+
+        <form method="post" asp-controller="Addresses">
+
+            <input class="visually-hidden" name="Id" value="@ViewBag.Address.Id" />
+
+            <p>Вы действительно хотите удалить @ViewBag?.Address?.getFullAddress()?</p>
+
+            <button class="btn-danger" id="SaveBtn" type="submit" asp-action="Delete">Удалить</button>
+            <button class="btn-outline-warning" id="CanselBtn" type="submit" asp-action="Index">Отменить</button>
+        </form>
+    </div>
+</section>

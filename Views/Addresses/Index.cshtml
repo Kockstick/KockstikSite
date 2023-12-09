@@ -2,6 +2,8 @@
     ViewData["Title"] = "Главная";
 }
 
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" rel="stylesheet" />
+
 <h1>Главная</h1>
 
 <section>
@@ -13,6 +15,7 @@
                 <th>Здание</th>
                 <th>Квартира</th>
                 <th>Комментарий</th>
+                <th></th>
             </thead>
             <tbody>
                 @{
@@ -52,6 +55,21 @@
                                     item.Description
                                         )
                                 </td>
+                                <td>
+                                    <form method="get" asp-controller="Addresses">
+                                        <button class="btn-primary" type="submit" asp-action="Edit">
+                                            <span class="material-symbols-sharp">
+                                                edit
+                                            </span>
+                                        </button>
+                                        <button class="btn-danger" type="submit" asp-action="Delete">
+                                            <span class="material-symbols-sharp">
+                                                delete
+                                            </span>
+                                        </button>
+                                        <input class="visually-hidden" name="Id" value="@item.Id" />
+                                    </form>
+                                </td>
                             </tr>
                         }
                     }
@@ -62,16 +80,9 @@
 </section>
 
 <div class="message_div">
-    @if (ViewBag.InfoMessage != null)
-    {
-        <h2 id="message_title">@ViewBag.InfoMessage.Title</h2>
-        <p id="message_text">@ViewBag.InfoMessage.Text</p>
-    }
-    else
-    {
-        <h2 id="message_title"></h2>
-        <p id="message_text"></p>
-    }
+    <h2 id="message_title">@ViewBag?.InfoMessage?.Title</h2>
+    <p id="message_text">@ViewBag?.InfoMessage?.Text</p>
+    <p id="message_type" class="visually-hidden">@ViewBag?.InfoMessage?.Type</p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" asp-append-version="true"></script>

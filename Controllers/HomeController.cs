@@ -25,9 +25,6 @@ namespace KockstikSite.Controllers
             return View();
         }
 
-        public IActionResult AddAddress() =>
-            View();
-
         public IActionResult Analytics()
         {
             return View();

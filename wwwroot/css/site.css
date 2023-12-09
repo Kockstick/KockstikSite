@@ -1,3 +1,7 @@
+* {
+    color: white;
+}
+
 html {
     font-size: 2vh;
 }
@@ -121,6 +125,11 @@ h1, p, h2{
     right: 2rem;
 }
 
+.message-normal {
+    border: 2px solid white;
+    box-shadow: white 0 0 10px 0px;
+}
+
 .message-error {
     border: 2px solid pink;
     box-shadow: red 0 0 10px 0px;
@@ -141,6 +150,12 @@ h1, p, h2{
 }
 
 #tableid {
+    color: white;
+    background-color: #2a323b;
     table-layout: fixed;
     width: 100%;
+}
+
+option {
+    background-color: #161a1e;
 }
