@@ -8,6 +8,7 @@ namespace KockstikSite.Database
     public class AppDbContext : DbContext
     {
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         public AppDbContext()
         {

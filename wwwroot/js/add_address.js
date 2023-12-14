@@ -2,11 +2,13 @@
 let btnCansel = document.getElementById("CanselBtn");
 let btnSave = document.getElementById("SaveBtn");
 
-btnCansel.onclick = () => {
+/*btnCansel.onclick = () => {
     if (confirm("Отчистить все поля на форме?")) {
         clearFields();
+
+        window.location.href = 'Index';
     }
-}
+}*/
 
 function clearFields() {
     let inputFields = document.getElementsByClassName("input_field");

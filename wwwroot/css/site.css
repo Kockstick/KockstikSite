@@ -50,7 +50,7 @@ p{
     font-size:0.8rem;
 }
 
-input {
+input, #drop-down {
     border-radius: 0.3rem;
     border: 2px solid transparent;
     border-bottom: 2px solid white;
@@ -59,9 +59,9 @@ input {
     transition: all 0.5s ease;
 }
 
-input:hover {
-    border: 2px solid #3f4b59;
-}
+    input:hover, #drop-down {
+        border: 2px solid #3f4b59;
+    }
 
 button {
     border-width: 0px;
@@ -158,4 +158,8 @@ h1, p, h2{
 
 option {
     background-color: #161a1e;
+}
+
+row-buttons-form{
+    display:flex;
 }

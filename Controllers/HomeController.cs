@@ -17,7 +17,24 @@ namespace KockstikSite.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Addresses");
+            using (var context = new AppDbContext())
+            {
+                ViewBag.Cities = context.Locations.ToList();
+                ViewBag.Addresses = context.Addresses.ToList();
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Index(string title, string text, string type)
+        {
+            using (var context = new AppDbContext())
+            {
+                ViewBag.InfoMessage = new InfoMessage(title, text, type);
+                ViewBag.Cities = context.Locations.ToList();
+                ViewBag.Addresses = context.Addresses.ToList();
+                return View();
+            }
         }
 
         public IActionResult Privacy()

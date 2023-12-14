@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Добавить Населенный Пункт";
+}
+<h1>Добавить Населенный Пункт</h1>
+
+<section>
+    <div class="main_container">
+
+        <form method="post">
+            <ul>
+                <li>
+                    <p>Префикс населенного пункта:</p>
+                    <input required class="input_field" name="Prefix" />
+                </li>
+                <li>
+                    <p>Название населенного пункта:</p>
+                    <input required class="input_field" name="Name" />
+                </li>
+            </ul>
+
+            <button class="btn-primary" id="SaveBtn" type="submit" asp-controller="City" asp-action="Create">Сохранить</button>
+            <button class="btn-outline-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home" asp-action="Index">Отменить</button>
+        </form>
+    </div>
+</section>
+
+<script src="~/js/add_address.js" asp-append-version="true"></script>

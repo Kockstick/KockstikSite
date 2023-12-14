@@ -10,23 +10,7 @@ namespace KockstikSite.Controllers
 {
     public class Addresses : Controller
     {
-        public IActionResult Index()
-        {
-            using (var context = new AppDbContext())
-            {
-                return View(context.Addresses.ToList());
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Index(string title, string text, string type)
-        {
-            using (var context = new AppDbContext())
-            {
-                ViewBag.InfoMessage = new InfoMessage(title, text, type);
-                return View(context.Addresses.ToList());
-            }
-        }
+        private Log log = new Log();
 
         [HttpGet]
         public IActionResult Edit(int Id)
@@ -34,21 +18,22 @@ namespace KockstikSite.Controllers
             try
             {
                 if (Id == 0)
-                    return LogError("Пустое значение первичного ключа");
+                    return log.LogError("Пустое значение первичного ключа");
 
                 using (var context = new AppDbContext())
                 {
                     var addr = context.Addresses.Find(Id);
                     if (addr == null)
-                        return LogError("Адрес не найден в базе");
+                        return log.LogError("Адрес не найден в базе");
 
                     ViewBag.Address = addr;
+                    ViewBag.Locations = context.Locations.ToList();
                     return View();
                 }
             }
             catch (Exception ex)
             {
-                return LogError($"Error: {ex}");
+                return log.LogError($"Error: {ex}");
             }
         }
 
@@ -58,16 +43,15 @@ namespace KockstikSite.Controllers
             try
             {
                 if (address == null)
-                    return LogError("Значение address пустое");
+                    return log.LogError("Значение address пустое");
 
                 using (var context = new AppDbContext())
                 {
-                    var addr = context.Addresses.FirstOrDefault(u => u.Id == address.Id);
+                    /*var addr = context.Addresses.Find(address.Id);
                     if (addr == null)
-                        return LogError("Адрес не найден в базе");
+                        return log.LogError("Адрес не найден в базе");
 
-                    addr.LocalityPrefix = address.LocalityPrefix;
-                    addr.LocalityName = address.LocalityName;
+                    addr.LocationId = address.LocationId;
                     addr.StreetPrefix = address.StreetPrefix;
                     addr.StreetName = address.StreetName;
                     addr.HouseNumber = address.HouseNumber;
@@ -75,15 +59,24 @@ namespace KockstikSite.Controllers
                     addr.BuildingNumber = address.BuildingNumber;
                     addr.ApartmentNumber = address.ApartmentNumber;
                     addr.RoomNumber = address.RoomNumber;
-                    addr.Description = address.Description;
-                    context.SaveChanges();
+                    addr.Description = address.Description;*/
+
+                    if (TryUpdateModelAsync(address).Result)
+                    {
+                        context.Entry(address).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        log.LogError("При редактировании возникла ошибка");
+                    }
                 }
 
-                return LogNormal("Адрес успешно изменен");
+                return log.LogNormal("Адрес успешно изменен");
             }
             catch (Exception ex)
             {
-                return LogError($"Error: {ex}");
+                return log.LogError($"Error: {ex}");
             }
         }
 
@@ -93,13 +86,13 @@ namespace KockstikSite.Controllers
             try
             {
                 if (Id == 0)
-                    return LogError("Пустое значение первичного ключа");
+                    return log.LogError("Пустое значение первичного ключа");
 
                 using (var context = new AppDbContext())
                 {
-                    var addr = context.Addresses.FirstOrDefault(u => u.Id == Id);
+                    var addr = context.Addresses.Find(Id);
                     if (addr == null)
-                        return LogError("Адрес не найден в базе");
+                        return log.LogError("Адрес не найден в базе");
 
                     ViewBag.Address = addr;
                     return View();
@@ -107,7 +100,7 @@ namespace KockstikSite.Controllers
             }
             catch (Exception ex)
             {
-                return LogError($"Error: {ex}");
+                return log.LogError($"Error: {ex}");
             }
         }
 
@@ -117,33 +110,31 @@ namespace KockstikSite.Controllers
             try
             {
                 if (address == null)
-                    return LogError("Значение address пустое");
+                    return log.LogError("Значение address пустое");
 
                 using (var context = new AppDbContext())
                 {
                     context.Addresses.Remove(address);
                     context.SaveChanges();
 
-                    return LogNormal("Адрес успешно удален");
+                    return log.LogNormal("Адрес успешно удален");
                 }
             }
             catch (Exception ex)
             {
-                return LogError($"Error: {ex}");
+                return log.LogError($"Error: {ex}");
             }
         }
 
-        public IActionResult AddAddress() =>
-            View();
-
         [HttpGet]
-        public IActionResult SaveAddress()
+        public IActionResult Create()
         {
-            return RedirectToAction("Index");
+            var context = new AppDbContext();
+            return View(context.Locations.ToList());
         }
 
         [HttpPost]
-        public IActionResult SaveAddress(Address address)
+        public IActionResult Create(Address address)
         {
             try
             {
@@ -152,23 +143,13 @@ namespace KockstikSite.Controllers
                     context.Addresses.Add(address);
                     context.SaveChanges();
 
-                    return LogNormal("Добавлен новый адрес: " + address.getFullAddress());
+                    return log.LogNormal("Добавлен новый адрес: " + address.getFullAddress());
                 }
             }
             catch (Exception ex)
             {
-                return LogError("Ошибка добавления адреса: " + ex.ToString());
+                return log.LogError("Ошибка добавления адреса: " + ex.ToString());
             }
-        }
-
-        private RedirectToActionResult LogError(string Text)
-        {
-            return RedirectToAction("Index", "Addresses", new { title = "Ошибка", text = Text, type = "error" });
-        }
-
-        private RedirectToActionResult LogNormal(string Text)
-        {
-            return RedirectToAction("Index", "Addresses", new { title = "Выполнено", text = Text, type = "normal" });
         }
     }
 }

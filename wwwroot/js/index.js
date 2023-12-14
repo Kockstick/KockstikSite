@@ -1,7 +1,10 @@
 ﻿
 $(document).ready(async function () {
-    var table = $('#tableid').DataTable();
-    table.column(0).visible(false);
+    var table = $('#table-addresses').DataTable();
+});
+
+$(document).ready(async function () {
+    var table = $('#table-locations').DataTable();
 });
 
 CheckMessage();
