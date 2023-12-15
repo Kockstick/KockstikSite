@@ -8,6 +8,53 @@
 
 <section>
     <div class="main_container">
+        <form id="tableBtnForm" method="get" asp-controller="Addresses">
+            <button class="btn-primary" type="submit" asp-controller="City" asp-action="Create">Добавить Населенный Пункт</button>
+        </form>
+
+        <table id="table-locations" class="display">
+            <thead>
+            <th>Префикс</th>
+            <th>Название</th>
+            <th></th>
+            </thead>
+            <tbody>
+                @{
+                    if (ViewBag.Cities != null)
+                    {
+                        foreach (var item in ViewBag.Cities)
+                        {
+                            <tr>
+                                <td>@item?.Prefix</td>
+                                <td>@item?.Name</td>
+                                <td>
+                                    <form class="row-buttons-form" method="get" asp-controller="City">
+                                        <button class="btn-primary" type="submit" asp-controller="City" asp-action="Edit">
+                                            <span class="material-symbols-sharp">
+                                                edit
+                                            </span>
+                                        </button>
+                                        <button class="btn-danger" type="submit" asp-controller="City" asp-action="Delete">
+                                            <span class="material-symbols-sharp">
+                                                delete
+                                            </span>
+                                        </button>
+                                        <input class="visually-hidden" name="Id" value="@item?.Id" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="last-container" class="main_container">
+        <form id="tableBtnForm" method="get" asp-controller="Addresses">
+            <button class="btn-primary" type="submit" asp-controller="Addresses" asp-action="Create">Добавить Адрес</button>
+        </form>
+
         <table id="table-addresses" class="display">
             <thead>
                 <th>Населенный пункт</th>
@@ -76,53 +123,6 @@
                 }
             </tbody>
         </table>
-        <form method="get" asp-controller="Addresses">
-            <button class="btn-primary" type="submit" asp-controller="Addresses" asp-action="Create">Добавить Адрес</button>
-        </form>
-        
-    </div>
-
-    <div id="last-container" class="main_container">
-        <table id="table-locations" class="display">
-            <thead>
-            <th>Префикс</th>
-            <th>Название</th>
-            <th></th>
-            </thead>
-            <tbody>
-                @{
-                    if (ViewBag.Cities != null)
-                    {
-                        foreach (var item in ViewBag.Cities)
-                        {
-                            <tr>
-                                <td>@item?.Prefix</td>
-                                <td>@item?.Name</td>
-                                <td>
-                                    <form class="row-buttons-form" method="get" asp-controller="City">
-                                        <button class="btn-primary" type="submit" asp-controller="City" asp-action="Edit">
-                                            <span class="material-symbols-sharp">
-                                                edit
-                                            </span>
-                                        </button>
-                                        <button class="btn-danger" type="submit" asp-controller="City" asp-action="Delete">
-                                            <span class="material-symbols-sharp">
-                                                delete
-                                            </span>
-                                        </button>
-                                        <input class="visually-hidden" name="Id" value="@item?.Id" />
-                                    </form>
-                                </td>
-                            </tr>
-                        }
-                    }
-                }
-            </tbody>
-        </table>
-
-        <form method="get" asp-controller="Addresses">
-            <button class="btn-primary" type="submit" asp-controller="City" asp-action="Create">Добавить Населенный Пункт</button>
-        </form>
     </div>
 </section>
 
