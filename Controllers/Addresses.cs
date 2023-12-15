@@ -130,7 +130,10 @@ namespace KockstikSite.Controllers
         public IActionResult Create()
         {
             var context = new AppDbContext();
-            return View(context.Locations.ToList());
+            var locations = context.Locations.AsNoTracking().ToList();
+            if (locations == null || locations.Count == 0)
+                return log.LogWarning("Не найдено ни одного населенного нункта");
+            return View(locations);
         }
 
         [HttpPost]

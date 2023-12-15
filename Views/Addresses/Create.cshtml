@@ -6,7 +6,7 @@
 <section>
     <div class="main_container">
 
-        <form method="post">
+        <form>
             <ul>
                 <li>
                     <p>Населенный пункт:</p>
@@ -56,7 +56,7 @@
                 </li>
             </ul>
 
-            <button class="btn-primary" id="SaveBtn" type="submit" asp-controller="Addresses" asp-action="Create">Сохранить</button>
+            <button class="btn-primary" id="SaveBtn" type="submit" method="post" asp-controller="Addresses" asp-action="Create">Сохранить</button>
             <button class="btn-outline-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home" asp-action="Index">Отменить</button>
         </form>
     </div>

@@ -130,6 +130,11 @@ h1, p, h2{
     box-shadow: white 0 0 10px 0px;
 }
 
+.message-warning {
+    border: 2px solid yellow;
+    box-shadow: orange 0 0 10px 0px;
+}
+
 .message-error {
     border: 2px solid pink;
     box-shadow: red 0 0 10px 0px;

@@ -13,5 +13,10 @@ namespace KockstikSite
         {
             return RedirectToAction("Index", "Home", new { title = "Выполнено", text = Text, type = "normal" });
         }
+
+        public RedirectToActionResult LogWarning(string Text)
+        {
+            return RedirectToAction("Index", "Home", new { title = "Внимание", text = Text, type = "warning" });
+        }
     }
 }
