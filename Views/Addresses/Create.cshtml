@@ -1,63 +1,80 @@
 ﻿@{
     ViewData["Title"] = "Добавить Адрес";
 }
-<h1>Добавить Адрес</h1>
 
 <section>
-    <div class="main_container">
+    <div class="card card-bordered shadow-sm m-5 p-5">
+
+        <h1 class="mb-5">Добавить Адрес</h1>
 
         <form method="post">
-            <ul>
-                <li>
-                    <p>Населенный пункт:</p>
-                    <select required id="drop-down" name="LocationId" class="form-select input_field">
-                        @{
-                            if(Model != null)
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Населенный пункт</span>
+                <select required id="drop-down" name="LocationId" class="form-select input_field">
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model)
                             {
-                                foreach(var item in Model)
-                                {
-                                    <option value="@item.Id">@(item.Prefix + "." + item.Name)</option>
-                                }
+                                <option value="@item.Id">@(item.Prefix + "." + item.Name)</option>
                             }
                         }
-                    </select>
-                </li>
-                <li>
-                    <p>Префикс улицы:</p>
-                    <input required class="input_field" name="StreetPrefix" />
-                </li>
-                <li>
-                    <p>Название улицы:</p>
-                    <input required class="input_field" name="StreetName" />
-                </li>
-                <li>
-                    <p>Номер дома:</p>
-                    <input required class="input_field" type="number" name="HouseNumber" />
-                </li>
-                <li>
-                    <p>Литера дома:</p>
-                    <input class="input_field" name="HomeLetter" />
-                </li>
-                <li>
-                    <p>Номер корпуса:</p>
-                    <input class="input_field" type="number" name="BuildingNumber" />
-                </li>
-                <li>
-                    <p>Номер квартиры:</p>
-                    <input class="input_field" type="number" name="ApartmentNumber" />
-                </li>
-                <li>
-                    <p>Номер комнаты:</p>
-                    <input class="input_field" type="number" name="RoomNumber" />
-                </li>
-                <li>
-                    <p>Комментарий:</p>
-                    <textarea class="input_field" name="Description"></textarea>
-                </li>
-            </ul>
+                    }
+                </select>
+            </div>
 
-            <button class="btn-primary" id="SaveBtn" type="submit" asp-controller="Addresses" asp-action="Create">Сохранить</button>
-            <button class="btn-outline-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home" asp-action="Index">Отменить</button>
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Префикс</span>
+                <input required type="text" class="form-control" placeholder="Префикс улицы" aria-label="Username"
+                    aria-describedby="basic-addon1" name="StreetPrefix" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Улица</span>
+                <input required type="text" class="form-control" placeholder="Название улицы" aria-label="Username"
+                    aria-describedby="basic-addon1" name="StreetName" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Дом</span>
+                <input required type="number" class="form-control" placeholder="Номер дома" aria-label="Username"
+                    aria-describedby="basic-addon1" name="HouseNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Литера</span>
+                <input type="text" class="form-control" placeholder="Литера дома" aria-label="Username"
+                    aria-describedby="basic-addon1" name="HomeLetter" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Корпус</span>
+                <input type="number" class="form-control" placeholder="Номер корпуса" aria-label="Username"
+                    aria-describedby="basic-addon1" name="BuildingNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Квартира</span>
+                <input type="number" class="form-control" placeholder="Номер квартиры" aria-label="Username"
+                    aria-describedby="basic-addon1" name="ApartmentNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Комната</span>
+                <input type="number" class="form-control" placeholder="Номер комнаты" aria-label="Username"
+                    aria-describedby="basic-addon1" name="RoomNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Комментарий</span>
+                <textarea class="form-control" placeholder="Какие-то пометки..." aria-label="Username"
+                    aria-describedby="basic-addon1" name="Description"></textarea>
+            </div>
+
+            <button class="btn btn-primary" id="SaveBtn" type="submit" asp-controller="Addresses"
+                asp-action="Create">Сохранить</button>
+            <button class="btn btn-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home"
+                asp-action="Index">Отменить</button>
         </form>
     </div>
 </section>

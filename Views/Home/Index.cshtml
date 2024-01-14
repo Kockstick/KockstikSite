@@ -4,135 +4,149 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" rel="stylesheet" />
 
-<h1>Главная</h1>
-
 <section>
-    <div class="main_container">
-        <form id="tableBtnForm" method="get" asp-controller="Addresses">
-            <button class="btn-primary" type="submit" asp-controller="City" asp-action="Create">Добавить Населенный Пункт</button>
-        </form>
+    <div class="card card-bordered card-xxl-stretch shadow-sm m-5 mb-xxl-8">
+        <div class="card-body pt-9">
+            <form method="get" asp-controller="Addresses">
+                <button class="btn btn-primary hover-elevate-up" type="submit" asp-controller="City"
+                    asp-action="Create">Добавить Населенный Пункт</button>
+            </form>
 
-        <table id="table-locations" class="display">
-            <thead>
-            <th>Префикс</th>
-            <th>Название</th>
-            <th></th>
-            </thead>
-            <tbody>
-                @{
-                    if (ViewBag.Cities != null)
-                    {
-                        foreach (var item in ViewBag.Cities)
+            <table id="table-locations" class="table table-rounded table-striped border gy-7 gs-7">
+                <thead>
+                    <th>Префикс</th>
+                    <th>Название</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    @{
+                        if (ViewBag.Cities != null)
                         {
-                            <tr>
-                                <td>@item?.Prefix</td>
-                                <td>@item?.Name</td>
-                                <td>
-                                    <form class="row-buttons-form" method="get" asp-controller="City">
-                                        <button class="btn-primary" type="submit" asp-controller="City" asp-action="Edit">
-                                            <span class="material-symbols-sharp">
-                                                edit
-                                            </span>
-                                        </button>
-                                        <button class="btn-danger" type="submit" asp-controller="City" asp-action="Delete">
-                                            <span class="material-symbols-sharp">
-                                                delete
-                                            </span>
-                                        </button>
-                                        <input class="visually-hidden" name="Id" value="@item?.Id" />
-                                    </form>
-                                </td>
-                            </tr>
+                            foreach (var item in ViewBag.Cities)
+                            {
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                    <td>@item?.Prefix</td>
+                                    <td>@item?.Name</td>
+                                    <td>
+                                        <form method="get" asp-controller="City">
+                                            <button class="btn btn-primary hover-elevate-up" type="submit" asp-controller="City"
+                                                asp-action="Edit">
+                                                <span class="material-symbols-sharp">
+                                                    edit
+                                                </span>
+                                            </button>
+                                            <button class="btn btn-danger hover-elevate-up" type="submit" asp-controller="City"
+                                                asp-action="Delete">
+                                                <span class="material-symbols-sharp">
+                                                    delete
+                                                </span>
+                                            </button>
+                                            <input class="visually-hidden" name="Id" value="@item?.Id" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div id="last-container" class="main_container">
-        <form id="tableBtnForm" method="get" asp-controller="Addresses">
-            <button class="btn-primary" type="submit" asp-controller="Addresses" asp-action="Create">Добавить Адрес</button>
-        </form>
+    <div class="card card-bordered shadow-sm m-5 mb-xxl-8">
+        <div class="card-body pt-9">
+            <form id="tableBtnForm" method="get" asp-controller="Addresses">
+                <button class="btn btn-primary" type="submit" asp-controller="Addresses" asp-action="Create">Добавить
+                    Адрес</button>
+            </form>
 
-        <table id="table-addresses" class="display">
-            <thead>
-                <th>Населенный пункт</th>
-                <th>Улица</th>
-                <th>Здание</th>
-                <th>Квартира</th>
-                <th>Комментарий</th>
-                <th></th>
-            </thead>
-            <tbody>
-                @{
-                    if (ViewBag.Addresses != null)
-                    {
-                        foreach (var item in ViewBag.Addresses)
+            <table id="table-addresses" class="table table-rounded table-striped border gy-7 gs-7">
+                <thead>
+                    <th>Населенный пункт</th>
+                    <th>Улица</th>
+                    <th>Здание</th>
+                    <th>Квартира</th>
+                    <th>Комментарий</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    @{
+                        if (ViewBag.Addresses != null)
                         {
-                            <tr>
-                                <td>@(
-                                    item.Location?.Prefix + "." + item.Location?.Name
-                                    )</td>
-                                <td>
-                                    @(
-                                    item.StreetPrefix + "." + item.StreetName
-                                        )
-                                </td>
-                                <td>
-                                    @(
-                                    item.BuildingNumber == 0 || item.BuildingNumber == null
-                                    ?
-                                    item.HouseNumber + " " + item.HomeLetter
-                                    :
-                                    item.HouseNumber + "/" + item.BuildingNumber + " " + item.HomeLetter
-                                    )
-                                </td>
-                                <td>
-                                    @(
-                                    item.ApartmentNumber == 0 || item.ApartmentNumber == null
-                                    ? 
-                                    "прочерк" 
-                                    :
-                                    (item.RoomNumber == 0 || item.RoomNumber == null ? item.ApartmentNumber : "кв." + item.ApartmentNumber + " ком." + item.RoomNumber)
-                                        )
-                                </td>
-                                <td>
-                                    @(
-                                    item.Description
-                                        )
-                                </td>
-                                <td>
-                                    <form class="row-buttons-form" method="get" asp-controller="Addresses">
-                                        <button class="btn-primary" type="submit" asp-controller="Addresses" asp-action="Edit">
-                                            <span class="material-symbols-sharp">
-                                                edit
-                                            </span>
-                                        </button>
-                                        <button class="btn-danger" type="submit" asp-controller="Addresses" asp-action="Delete">
-                                            <span class="material-symbols-sharp">
-                                                delete
-                                            </span>
-                                        </button>
-                                        <input class="visually-hidden" name="Id" value="@item.Id" />
-                                    </form>
-                                </td>
-                            </tr>
+                            foreach (var item in ViewBag.Addresses)
+                            {
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                    <td>@(
+                                        item.Location?.Prefix + "." + item.Location?.Name
+                                            )</td>
+                                    <td>
+                                        @(
+                                        item.StreetPrefix + "." + item.StreetName
+                                            )
+                                    </td>
+                                    <td>
+                                        @(
+                                        item.BuildingNumber == 0 || item.BuildingNumber == null
+                                        ?
+                                        item.HouseNumber + " " + item.HomeLetter
+                                        :
+                                        item.HouseNumber + "/" + item.BuildingNumber + " " + item.HomeLetter
+                                            )
+                                    </td>
+                                    <td>
+                                        @(
+                                        item.ApartmentNumber == 0 || item.ApartmentNumber == null
+                                        ?
+                                        "прочерк"
+                                        :
+                                        (item.RoomNumber == 0 || item.RoomNumber == null ? item.ApartmentNumber : "кв." +
+                                        item.ApartmentNumber + " ком." + item.RoomNumber)
+                                            )
+                                    </td>
+                                    <td>
+                                        @(
+                                        item.Description
+                                            )
+                                    </td>
+                                    <td>
+                                        <form class="row-buttons-form" method="get" asp-controller="Addresses">
+                                            <button class="btn btn-primary" type="submit" asp-controller="Addresses"
+                                                asp-action="Edit">
+                                                <span class="material-symbols-sharp">
+                                                    edit
+                                                </span>
+                                            </button>
+                                            <button class="btn btn-danger" type="submit" asp-controller="Addresses"
+                                                asp-action="Delete">
+                                                <span class="material-symbols-sharp">
+                                                    delete
+                                                </span>
+                                            </button>
+                                            <input class="visually-hidden" name="Id" value="@item.Id" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 
-<div class="message_div">
-    <h2 id="message_title">@ViewBag?.InfoMessage?.Title</h2>
-    <p id="message_text">@ViewBag?.InfoMessage?.Text</p>
+<div class="alert alert-primary d-flex align-items-center p-5 m-5">
+    <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span class="path1"></span><span
+            class="path2"></span></i>
+    <div class="d-flex flex-column">
+        <h4 class="mb-1 text-dark">@ViewBag?.InfoMessage?.Title</h4>
+        <span>@ViewBag?.InfoMessage?.Text</span>
+    </div>
     <p id="message_type" class="visually-hidden">@ViewBag?.InfoMessage?.Type</p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" asp-append-version="true"></script>
 <script src="~/js/index.js" asp-append-version="true"></script>
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" asp-append-version="true"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"
+    asp-append-version="true"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" asp-append-version="true"></script>

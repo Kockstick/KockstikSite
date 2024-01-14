@@ -1,13 +1,13 @@
 ﻿using KockstikSite.Database;
 using KockstikSite.Database.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KockstikSite.Controllers
 {
     public class City : Controller
     {
         private Log log = new Log();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         [HttpGet]
         public ActionResult Index()
@@ -26,13 +26,18 @@ namespace KockstikSite.Controllers
         {
             try
             {
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     context.Locations.Add(location);
                     context.SaveChanges();
 
                     return log.LogNormal("Добавлен населенный пункт: " + location.Prefix + "." + location.Name);
-                }
+                }*/
+
+                unitOfWork.Locations.Create(location);
+                unitOfWork.Save();
+
+                return log.LogNormal("Добавлен населенный пункт: " + location.Prefix + "." + location.Name);
             }
             catch (Exception ex)
             {
@@ -48,7 +53,7 @@ namespace KockstikSite.Controllers
                 if (Id == 0)
                     return log.LogError("Пустое значение первичного ключа");
 
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     var location = context.Locations.Find(Id);
                     if (location == null)
@@ -56,7 +61,14 @@ namespace KockstikSite.Controllers
 
                     ViewBag.Location = location;
                     return View();
-                }
+                }*/
+
+                var location = unitOfWork.Locations.Get(Id);
+                if (location == null)
+                    return log.LogError("Адрес не найден в базе");
+
+                ViewBag.Location = location;
+                return View();
             }
             catch (Exception ex)
             {
@@ -74,16 +86,7 @@ namespace KockstikSite.Controllers
 
                 using (var context = new AppDbContext())
                 {
-                    /*
-                    var loc = context.Locations.Find(location.Id);
-                    if (loc == null)
-                        return log.LogError("Населенный пункт не найден в базе");
-
-                    loc.Prefix = location.Prefix;
-                    loc.Name = location.Name;
-                    */
-
-                    if (TryUpdateModelAsync(location).Result)
+                    /*if (TryUpdateModelAsync(location).Result)
                     {
                         context.Entry(location).State = EntityState.Modified;
                         context.SaveChanges();
@@ -91,7 +94,10 @@ namespace KockstikSite.Controllers
                     else
                     {
                         log.LogError("При редактировании возникла ошибка");
-                    }
+                    }*/
+
+                    unitOfWork.Locations.Update(location);
+                    unitOfWork.Save();
                 }
 
                 return log.LogNormal("Населенный пункт успешно изменен");
@@ -110,7 +116,7 @@ namespace KockstikSite.Controllers
                 if (Id == 0)
                     return log.LogError("Пустое значение первичного ключа");
 
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     var location = context.Locations.Find(Id);
                     if (location == null)
@@ -118,7 +124,14 @@ namespace KockstikSite.Controllers
 
                     ViewBag.Location = location;
                     return View();
-                }
+                }*/
+
+                var location = unitOfWork.Locations.Get(Id);
+                if (location == null)
+                    return log.LogError("Населенный пункт не найден в базе");
+
+                ViewBag.Location = location;
+                return View();
             }
             catch (Exception ex)
             {

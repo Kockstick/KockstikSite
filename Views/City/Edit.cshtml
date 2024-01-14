@@ -2,26 +2,33 @@
     ViewData["Title"] = "Редактировать Населенный Пункт";
 }
 
-<h1>Редактировать Населенный Пункт</h1>
-
 <section>
-    <div class="main_container">
+    <div class="card card-bordered shadow-sm p-5 m-5">
+
+        <h1 class="mb-5">Редактировать Населенный Пункт</h1>
 
         <form method="post">
-            <ul>
-                <input class="visually-hidden" name="Id" value="@ViewBag?.Location?.Id" />
-                <li>
-                    <p>Префикс Населенного Пункта:</p>
-                    <input required class="input_field" name="Prefix" value="@ViewBag?.Location?.Prefix" />
-                </li>
-                <li>
-                    <p>Название Населенного Пункта:</p>
-                    <input required class="input_field" name="Name" value="@ViewBag?.Location?.Name" />
-                </li>
-            </ul>
 
-            <button class="btn-primary" id="SaveBtn" type="submit" asp-controller="City" asp-action="Edit">Сохранить</button>
-            <button class="btn-outline-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home" asp-action="Index">Отменить</button>
+            <input class="visually-hidden" name="Id" value="@ViewBag?.Location?.Id" />
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Префикс</span>
+                <input required type="text" class="form-control" placeholder="Префикс населенного пункта"
+                    aria-label="Username" aria-describedby="basic-addon1" name="Prefix"
+                    value="@ViewBag?.Location?.Prefix" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Название</span>
+                <input required type="text" class="form-control" placeholder="Название населенного пункта"
+                    aria-label="Username" aria-describedby="basic-addon1" name="Name"
+                    value="@ViewBag?.Location?.Name" />
+            </div>
+
+            <button class="btn btn-primary" id="SaveBtn" type="submit" asp-controller="City"
+                asp-action="Edit">Сохранить</button>
+            <button class="btn btn-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home"
+                asp-action="Index">Отменить</button>
         </form>
     </div>
 </section>

@@ -2,71 +2,88 @@
     ViewData["Title"] = "Редактировать Адрес";
 }
 
-<h1>Редактировать Адрес</h1>
+
 
 <section>
-    <div class="main_container">
+    <div class="card card-bordered shadow-sm m-5 p-5">
+
+        <h1 class="mb-5">Редактировать Адрес</h1>
 
         <form method="post" asp-controller="Addresses">
-            <ul>
-                <input class="visually-hidden" name="Id" value="@ViewBag?.Address?.Id" />
-                <li>
-                    <p>Населенный пункт:</p>
-                    <select required id="drop-down" name="LocationId" class="form-select input_field">
-                        @{
-                            if (ViewBag.Locations != null)
+            <input class="visually-hidden" name="Id" value="@ViewBag?.Address?.Id" />
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Населенный пункт</span>
+                <select required id="drop-down" name="LocationId" class="form-select input_field">
+                    @{
+                        if (ViewBag.Locations != null)
+                        {
+                            foreach (var item in ViewBag.Locations)
                             {
-                                foreach (var item in ViewBag.Locations)
+                                if (ViewBag.Address.Location?.Id == item.Id)
                                 {
-                                    if(ViewBag.Address.Location?.Id == item.Id)
-                                    {
-                                        <option selected value="@item.Id">@(item.Prefix + "." + item.Name)</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Id">@(item.Prefix + "." + item.Name)</option>
-                                    }
+                                    <option selected value="@item.Id">@(item.Prefix + "." + item.Name)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@(item.Prefix + "." + item.Name)</option>
                                 }
                             }
                         }
-                    </select>
-                </li>
-                <li>
-                    <p>Префикс улицы:</p>
-                    <input required class="input_field" name="StreetPrefix" value="@ViewBag.Address.StreetPrefix" />
-                </li>
-                <li>
-                    <p>Название улицы:</p>
-                    <input required class="input_field" name="StreetName" value="@ViewBag.Address.StreetName" />
-                </li>
-                <li>
-                    <p>Номер дома:</p>
-                    <input required class="input_field" type="number" name="HouseNumber" value="@ViewBag.Address.HouseNumber" />
-                </li>
-                <li>
-                    <p>Литера дома:</p>
-                    <input class="input_field" name="HomeLetter" value="@ViewBag.Address.HomeLetter" />
-                </li>
-                <li>
-                    <p>Номер корпуса:</p>
-                    <input class="input_field" type="number" name="BuildingNumber" value="@ViewBag.Address.BuildingNumber" />
-                </li>
-                <li>
-                    <p>Номер квартиры:</p>
-                    <input class="input_field" type="number" name="ApartmentNumber" value="@ViewBag.Address.ApartmentNumber" />
-                </li>
-                <li>
-                    <p>Номер комнаты:</p>
-                    <input class="input_field" type="number" name="RoomNumber" value="@ViewBag.Address.RoomNumber" />
-                </li>
-                <li>
-                    <p>Комментарий:</p>
-                    <textarea class="input_field" name="Description">@ViewBag.Address.Description</textarea>
-                </li>
-            </ul>
+                    }
+                </select>
+            </div>
 
-            <button class="btn-primary" id="SaveBtn" type="submit" asp-action="Edit">Сохранить</button>
-            <button class="btn-outline-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home" asp-action="Index">Отменить</button>
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Префикс</span>
+                <input required type="text" class="form-control" placeholder="Префикс улицы" aria-label="Username"
+                    aria-describedby="basic-addon1" name="StreetPrefix" value="@ViewBag.Address.StreetPrefix" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Улица</span>
+                <input required type="text" class="form-control" placeholder="Название улицы" aria-label="Username"
+                    aria-describedby="basic-addon1" name="StreetName" value="@ViewBag.Address.StreetName" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Дом</span>
+                <input required type="number" class="form-control" placeholder="Номер дома" aria-label="Username"
+                    aria-describedby="basic-addon1" name="HouseNumber" value="@ViewBag.Address.HouseNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Литера</span>
+                <input type="text" class="form-control" placeholder="Литера дома" aria-label="Username"
+                    aria-describedby="basic-addon1" name="HomeLetter" value="@ViewBag.Address.HomeLetter" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Корпус</span>
+                <input type="number" class="form-control" placeholder="Номер корпуса" aria-label="Username"
+                    aria-describedby="basic-addon1" name="BuildingNumber" value="@ViewBag.Address.BuildingNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Квартира</span>
+                <input type="number" class="form-control" placeholder="Номер квартиры" aria-label="Username"
+                    aria-describedby="basic-addon1" name="ApartmentNumber" value="@ViewBag.Address.ApartmentNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Комната</span>
+                <input type="number" class="form-control" placeholder="Номер комнаты" aria-label="Username"
+                    aria-describedby="basic-addon1" name="RoomNumber" value="@ViewBag.Address.RoomNumber" />
+            </div>
+
+            <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">Комментарий</span>
+                <textarea class="form-control" placeholder="Какие-то пометки..." aria-label="Username"
+                    aria-describedby="basic-addon1" name="Description">@ViewBag.Address.Description</textarea>
+            </div>
+
+            <button class="btn btn-primary" id="SaveBtn" type="submit" asp-action="Edit">Сохранить</button>
+            <button class="btn btn-warning" id="CanselBtn" type="submit" formnovalidate asp-controller="Home"
+                asp-action="Index">Отменить</button>
         </form>
     </div>
 </section>

@@ -1,16 +1,14 @@
 ﻿using KockstikSite.Database;
 using KockstikSite.Database.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace KockstikSite.Controllers
 {
     public class Addresses : Controller
     {
         private Log log = new Log();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         [HttpGet]
         public IActionResult Edit(int Id)
@@ -20,7 +18,8 @@ namespace KockstikSite.Controllers
                 if (Id == 0)
                     return log.LogError("Пустое значение первичного ключа");
 
-                using (var context = new AppDbContext())
+
+                /*using (var context = new AppDbContext())
                 {
                     var addr = context.Addresses.Find(Id);
                     if (addr == null)
@@ -29,7 +28,15 @@ namespace KockstikSite.Controllers
                     ViewBag.Address = addr;
                     ViewBag.Locations = context.Locations.ToList();
                     return View();
-                }
+                }*/
+
+                var addr = unitOfWork.Addresses.Get(Id);
+                if (addr == null)
+                    return log.LogError("Адрес не найден в базе");
+
+                ViewBag.Address = addr;
+                ViewBag.Locations = unitOfWork.Locations.GetAll().ToList();
+                return View();
             }
             catch (Exception ex)
             {
@@ -45,22 +52,8 @@ namespace KockstikSite.Controllers
                 if (address == null)
                     return log.LogError("Значение address пустое");
 
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
-                    /*var addr = context.Addresses.Find(address.Id);
-                    if (addr == null)
-                        return log.LogError("Адрес не найден в базе");
-
-                    addr.LocationId = address.LocationId;
-                    addr.StreetPrefix = address.StreetPrefix;
-                    addr.StreetName = address.StreetName;
-                    addr.HouseNumber = address.HouseNumber;
-                    addr.HomeLetter = address.HomeLetter;
-                    addr.BuildingNumber = address.BuildingNumber;
-                    addr.ApartmentNumber = address.ApartmentNumber;
-                    addr.RoomNumber = address.RoomNumber;
-                    addr.Description = address.Description;*/
-
                     if (TryUpdateModelAsync(address).Result)
                     {
                         context.Entry(address).State = EntityState.Modified;
@@ -70,8 +63,10 @@ namespace KockstikSite.Controllers
                     {
                         log.LogError("При редактировании возникла ошибка");
                     }
-                }
+                }*/
 
+                unitOfWork.Addresses.Update(address);
+                unitOfWork.Save();
                 return log.LogNormal("Адрес успешно изменен");
             }
             catch (Exception ex)
@@ -88,7 +83,7 @@ namespace KockstikSite.Controllers
                 if (Id == 0)
                     return log.LogError("Пустое значение первичного ключа");
 
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     var addr = context.Addresses.Find(Id);
                     if (addr == null)
@@ -96,7 +91,14 @@ namespace KockstikSite.Controllers
 
                     ViewBag.Address = addr;
                     return View();
-                }
+                }*/
+
+                var addr = unitOfWork.Addresses.Get(Id);
+                if (addr == null)
+                    return log.LogError("Адрес не найден в базе");
+
+                ViewBag.Address = addr;
+                return View();
             }
             catch (Exception ex)
             {
@@ -112,13 +114,18 @@ namespace KockstikSite.Controllers
                 if (address == null)
                     return log.LogError("Значение address пустое");
 
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     context.Addresses.Remove(address);
                     context.SaveChanges();
 
                     return log.LogNormal("Адрес успешно удален");
-                }
+                }*/
+
+                unitOfWork.Addresses.Delete(address.Id);
+                unitOfWork.Save();
+
+                return log.LogNormal("Адрес успешно удален");
             }
             catch (Exception ex)
             {
@@ -129,8 +136,13 @@ namespace KockstikSite.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var context = new AppDbContext();
+            /*var context = new AppDbContext();
             var locations = context.Locations.AsNoTracking().ToList();
+            if (locations == null || locations.Count == 0)
+                return log.LogWarning("Не найдено ни одного населенного нункта");
+            return View(locations);*/
+
+            var locations = unitOfWork.Locations.GetAll().ToList();
             if (locations == null || locations.Count == 0)
                 return log.LogWarning("Не найдено ни одного населенного нункта");
             return View(locations);
@@ -141,13 +153,18 @@ namespace KockstikSite.Controllers
         {
             try
             {
-                using (var context = new AppDbContext())
+                /*using (var context = new AppDbContext())
                 {
                     context.Addresses.Add(address);
                     context.SaveChanges();
 
                     return log.LogNormal("Добавлен новый адрес: " + address.getFullAddress());
-                }
+                }*/
+
+                unitOfWork.Addresses.Create(address);
+                unitOfWork.Save();
+
+                return log.LogNormal("Добавлен новый адрес: " + address.getFullAddress());
             }
             catch (Exception ex)
             {

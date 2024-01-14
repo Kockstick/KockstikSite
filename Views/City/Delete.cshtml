@@ -2,19 +2,23 @@
     ViewData["Title"] = "Удалить Адрес";
 }
 
-<h1>"Удалить Адрес"</h1>
+
 
 <section>
-    <div class="main_container">
+    <div class="card card-bordered m-5 p-5 shadow-sm">
+
+        <h1 class="mb-5">Удалить Адрес</h1>
 
         <form method="post">
 
             <input class="visually-hidden" name="Id" value="@ViewBag?.Location?.Id" />
 
-            <p>Вы действительно хотите удалить @ViewBag?.Location?.Prefix @ViewBag?.Location?.Name</p>
+            <p>Вы действительно хотите удалить @ViewBag?.Location?.Prefix. @ViewBag?.Location?.Name ?</p>
 
-            <button class="btn-danger" id="SaveBtn" type="submit" asp-controller="City" asp-action="Delete">Удалить</button>
-            <button class="btn-outline-warning" id="CanselBtn" type="submit" asp-controller="Home" asp-action="Index">Отменить</button>
+            <button class="btn btn-danger" id="SaveBtn" type="submit" asp-controller="City"
+                asp-action="Delete">Удалить</button>
+            <button class="btn btn-warning" id="CanselBtn" type="submit" asp-controller="Home"
+                asp-action="Index">Отменить</button>
         </form>
     </div>
 </section>
